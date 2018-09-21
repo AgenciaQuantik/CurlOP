@@ -25,7 +25,7 @@ Requirements
 Installation
 ============
 
-`composer require Agencia-Quantik/CurlOP`
+`composer require Quantik/CurlOP`
 
 Usage
 =====
@@ -77,6 +77,12 @@ If you choose to use an authentication that requires token, you may fill it here
 
 * login($username, $password = "")
 If you choose to use an authentication that requires basic login and password, you may fill it here.
+
+* responseType($responseType = 1)
+You can specify the method as a string or as a integer, here is the list of all the options:
+  * 0 - None (won't parse)
+  * 1 - JSON
+  * 2 - XML
 
 Credits
 =======
