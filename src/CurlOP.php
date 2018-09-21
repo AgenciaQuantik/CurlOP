@@ -34,6 +34,9 @@ class CurlOP {
    /**  @var array      $_Response Response given by the request */
    protected $_Response = [];
 
+   /**  @var int      $_ResponseType Response type that CurlOP will parse into */
+   protected $_ResponseType = 1;
+
   /*
    |---------------------------------------------------------------------------------------------
    | Main methods
@@ -109,13 +112,65 @@ class CurlOP {
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $this->_Method); 
 
       //Run curl
-      $this->_Response = curl_exec($curl);
+      $response = curl_exec($curl);
 
       //Close curl
       curl_close($curl);
 
+      switch ($this->_ResponseType) {
+        case 0:
+          $this->_Response = $response;
+        break;
+
+        case 1:
+          $this->_Response = json_decode($response);
+        break;
+
+        case 2:
+          $this->_Response = simplexml_load_string($response);
+        break;
+      }
+
       //An exception to the concatenation, this will return the result
       return $this->_Response;
+   }
+
+  /*
+   |---------------------------------------------------------------------------------------------
+   | Response methods
+   |---------------------------------------------------------------------------------------------
+   */
+
+  /**
+  * responseType
+  *
+  * Set the response type, when the request is made, it will parse accordling
+  *
+  * @param string|int $responseType Type that is going to be used to parse response
+  *
+  * @return object
+  */
+   public function responseType ($responseType) {
+      switch ($responseType) {
+        case 0:
+        case 'NONE':
+          $this->_ResponseType = 0;
+        break;
+
+        default:
+        case 1:
+        case 'ASSOC':
+          $this->_ResponseType = 1;
+        break;
+
+        case 1:
+        case 'XML':
+          $this->_ResponseType = 2;
+        break;
+      }
+
+      //Always return object, allowing concatenation of methods
+      return $this;
    }
 
   /*
