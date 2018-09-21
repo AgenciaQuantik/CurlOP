@@ -1,0 +1,24 @@
+{
+    "name": "quantik/curlop",
+    "description": "A simple encapsulation for Curl that aims for simplicity.",
+    "keywords": ["curl", "composer"],
+    "license": "CC-BY-4.0",
+    "authors": [
+        {
+            "name": "Rafael Correa",
+            "email": "rafael.correa@quantik.com.br"
+        }
+    ],
+    "type": "library",
+    "require": {
+		"php": ">=7.1"
+    },
+    "require-dev": {
+		"phpunit/phpunit": "6.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Quantik\\CurlOP\\": "src/"
+        }
+    }
+}
